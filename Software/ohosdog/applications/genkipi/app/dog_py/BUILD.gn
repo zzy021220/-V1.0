@@ -1,0 +1,24 @@
+static_library("dog_py") {
+    sources = [
+        "main.c",
+        "pca9685.c",
+        "dog.c",
+        "genki_web_ohosdog.c",
+        "kinematics.c"
+    ]
+
+    include_dirs = [
+        "//utils/native/lite/include",
+        "//domains/iot/link/libbuild",
+        "//base/iot_hardware/peripheral/interfaces/kits",
+        "//kernel/liteos_m/kal/cmsis/",
+        "//device/itcast/genkipi/interfaces/kits",
+        "//device/itcast/genkipi/iot_tool/include",
+        "//third_party/cJSON/"
+    ]
+
+    deps = [
+        "//device/itcast/genkipi/iot_tool",
+    ]
+
+}

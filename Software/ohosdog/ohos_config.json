@@ -1,0 +1,9 @@
+{
+  "root_path": "/home/itcast/Downloads/ohosdog",
+  "board": "genkipi",
+  "kernel": "liteos_m",
+  "product": "genkipi",
+  "product_path": "/home/itcast/Downloads/ohosdog/vendor/itcast/genkipi",
+  "device_path": "/home/itcast/Downloads/ohosdog/device/itcast/genkipi/sdk_liteos",
+  "patch_cache": null
+}
