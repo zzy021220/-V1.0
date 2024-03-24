@@ -27,7 +27,7 @@ void dog_setRightBackAngle(int alpha, int beta);
 void dog_execAction(dog_action_t* action);
 void dog_execJson(char* str, int len);
 
-void dog_install(void);
+void stand1(void);
 
 void dog_leg_move(int index, double x, double y);
 

@@ -26,31 +26,40 @@
 #define LB_A    10
 #define LB_B    11
 // right front leg
-#define RF_A    3
-#define RF_B    2
+#define RF_A    2
+#define RF_B    3
 // right back leg
 #define RB_A    13
 #define RB_B    12
 
 
-#define OFFSET_LF_A     45
-#define OFFSET_LF_B     -45
-#define OFFSET_LB_A     45
-#define OFFSET_LB_B     -45
+#define OFFSET_LF_A     0
+#define OFFSET_LF_B     0
+#define OFFSET_LB_A     0
+#define OFFSET_LB_B     0
 
-#define OFFSET_RF_A     45
-#define OFFSET_RF_B     -45
-#define OFFSET_RB_A     45
-#define OFFSET_RB_B     -45
+#define OFFSET_RF_A     0
+#define OFFSET_RF_B     0
+#define OFFSET_RB_A     0
+#define OFFSET_RB_B     0
 
-static int port_lf_a = LF_A;
-static int port_lf_b = LF_B;
-static int port_lb_a = LB_A;
-static int port_lb_b = LB_B;
-static int port_rf_a = RF_A;
-static int port_rf_b = RF_B;
-static int port_rb_a = RB_A;
-static int port_rb_b = RB_B;
+int home_rf_a = 165;//右前手臂
+int home_rf_b = 60;//右前腿
+int home_lf_a = 60;//左前
+int home_lf_b = 165;//左前
+int home_lb_a = 100;//左后
+int home_lb_b = 15;//左后
+int home_rb_a = 100;//右后腿
+int home_rb_b = 15;//右后手臂
+
+static int port_lf_a = LF_A;        //左前手臂
+static int port_lf_b = LF_B;        //左前腿
+static int port_lb_a = LB_A;        //左后手臂
+static int port_lb_b = LB_B;        //左后腿
+static int port_rf_a = RF_A;        //右前手臂
+static int port_rf_b = RF_B;        //右前腿
+static int port_rb_a = RB_A;        //右后手臂
+static int port_rb_b = RB_B;        //右后腿
 
 static int offset_lf_a = OFFSET_LF_A;
 static int offset_lf_b = OFFSET_LF_B;
@@ -108,11 +117,306 @@ static int map(int x, int in_min, int in_max, int out_min, int out_max) {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
 
-void dog_install(void) {
-    dog_setLeftFrontAngle(90, 180);
-    dog_setLeftBackAngle(90, 180);
-    dog_setRightFrontAngle(90, 180);
-    dog_setRightBackAngle(90, 180);
+// 趴下
+void sithome(){
+    dog_setLeftFrontAngle(70, 135);//（5，4）
+    dog_setLeftBackAngle(110, 45);//（7,6）
+    dog_setRightFrontAngle(70, 135);//（3.2）
+    dog_setRightBackAngle(110, 45);//(9,8)
+}
+//站立
+void standhome(){
+    dog_setLeftFrontAngle(15, 100);//（手臂，腿）
+    dog_setLeftBackAngle(165, 60);//（手臂，腿）
+    dog_setRightFrontAngle(15, 120);//(手臂，腿)
+    dog_setRightBackAngle(165, 80);//(手臂，腿)
+}
+
+//初始化动作
+void initial()
+{
+    sithome();
+    usleep(300* 1000);
+    dog_setRightFrontAngle(70,175);
+    usleep(300* 1000);
+    dog_setRightFrontAngle(70,135);
+    usleep(300* 1000);
+    dog_setRightBackAngle(110,85);
+    usleep(300* 1000);
+    dog_setRightBackAngle(110,45);
+    usleep(300* 1000);
+    dog_setLeftBackAngle(110,5);
+    usleep(300* 1000);
+    dog_setLeftBackAngle(110,45);
+    usleep(300* 1000);
+    dog_setLeftFrontAngle(70,95);
+    usleep(300* 1000);
+    dog_setLeftFrontAngle(70,135);
+    usleep(300* 1000);
+    standhome();
+    usleep(300* 1000);
+}
+
+//初始化动作
+// void initial(){
+//   sithome();
+//   usleep(300* 1000);//300ms延时
+//   pca9685_servo_set_angle(port_rf_b, 95);
+//   usleep(300* 1000);//300ms延时
+//   pca9685_servo_set_angle(port_rf_b, home_rf_b);
+//   usleep(300* 1000);//300ms延时
+//   pca9685_servo_set_angle(port_rb_b, 10);
+//   usleep(300* 1000);//300ms延时
+//   pca9685_servo_set_angle(port_rb_b, home_rb_a);
+//   usleep(300* 1000);//300ms延时
+//   pca9685_servo_set_angle(port_lb_b, 10);
+//   usleep(300* 1000);//300ms延时
+//   pca9685_servo_set_angle(port_lb_b, home_lf_a);
+//   usleep(300* 1000);//300ms延时
+//   pca9685_servo_set_angle(port_lf_b, 170);
+//   usleep(300* 1000);//300ms延时
+//   pca9685_servo_set_angle(port_lf_b, home_lb_a);
+//   usleep(300* 1000);//300ms延时
+
+//   pca9685_servo_set_angle(port_rf_a, 165);
+//   pca9685_servo_set_angle(port_lf_a, 15);
+//   pca9685_servo_set_angle(port_lb_a, 165);
+//   pca9685_servo_set_angle(port_rb_a, 15);
+// }
+
+void stand1(void) {
+    dog_setLeftFrontAngle(15, 100);//（7,6）
+    dog_setLeftBackAngle(165, 60);//（5，4）
+    dog_setRightFrontAngle(165, 70);//(9,8)
+    dog_setRightBackAngle(15, 120);//（3.2）
+    usleep(1000* 1000);//一秒延时
+    sithome();
+    usleep(1000* 1000);//一秒延时
+    initial();
+    usleep(1000* 1000);//一秒延时
+    forward(5);
+    usleep(1000* 1000);//一秒延时
+    backward(5);
+    usleep(1000* 1000);//一秒延时
+    rightturn(5);
+    usleep(1000* 1000);//一秒延时
+    leftturn(5);
+    usleep(1000* 1000);//一秒延时
+    twist();
+    usleep(1000* 1000);//一秒延时
+}
+
+// 前进
+void forward(unsigned int step){
+  while (step-- > 0){
+  pca9685_servo_set_angle(port_rf_a, home_rf_b+30);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b+30);
+  usleep(200* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_b, home_rf_a+30);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a-30);
+  pca9685_servo_set_angle(port_lb_b, home_lf_a);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a);
+  usleep(200* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_a, home_rf_b);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b);
+  usleep(200* 1000);//100ms延时
+  
+  pca9685_servo_set_angle(port_lb_a, home_lf_b-30);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b-30);
+  pca9685_servo_set_angle(port_rf_b, home_rf_a);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a);
+   usleep(200* 1000);//100ms延时
+  pca9685_servo_set_angle(port_lb_b, home_lf_a-30);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a+30);
+  usleep(200* 1000);//100ms延时
+
+  pca9685_servo_set_angle(port_lb_a, home_lf_b);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b);
+  usleep(200* 1000);//100ms延时
+  }
+}
+
+// 動作2
+void stand2(){
+  sithome();
+  pca9685_servo_set_angle(port_rf_b, 175);
+  pca9685_servo_set_angle(port_lb_b, 5);
+  pca9685_servo_set_angle(port_lf_b, 175);
+  pca9685_servo_set_angle(port_rb_b, 5);
+   usleep(600* 1000);//600ms延时
+    
+  pca9685_servo_set_angle(port_rf_b, home_rf_a);
+  pca9685_servo_set_angle(port_lb_b, home_lf_a);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a);
+  usleep(600* 1000);//600ms延时
+  
+     pca9685_servo_set_angle(port_rf_a, home_rf_b);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b);
+  pca9685_servo_set_angle(port_lb_a, home_lf_b);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b);
+}
+
+// 伸懒腰
+void stand3()
+{ 
+  sithome();
+  int i;
+  int j = 90;
+  int k = 90;
+  pca9685_servo_set_angle(port_rf_b, home_rf_a);
+  pca9685_servo_set_angle(port_lb_b, home_lf_a);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a);
+  for(i = 90; i < 165; i++)
+  {
+    pca9685_servo_set_angle(port_lb_a, i);
+    j = j - 1;
+    pca9685_servo_set_angle(port_rf_a, j);
+     usleep(20* 1000);//20ms延时
+  }
+  
+  for(i = 115; i < 165; i++)
+  {
+      pca9685_servo_set_angle(port_rb_a, i);
+    k = k - 1;
+      pca9685_servo_set_angle(port_lf_a, k);
+     usleep(20* 1000);//20ms延时
+  }
+}
+
+// 跳跃
+void downaction(unsigned int step){
+  while (step-- > 0){
+  sithome();
+   usleep(100* 1000);//100ms延时
+  standhome();
+  usleep(100* 1000);//100ms延时
+  }
+}
+
+// 握手
+void wink(unsigned int step){
+  standhome();
+    pca9685_servo_set_angle(port_lb_b, home_lf_a -30);
+  while (step-- > 0){
+  pca9685_servo_set_angle(port_lb_b, 30);
+     pca9685_servo_set_angle(port_rb_a, home_rb_b- 100);
+   usleep(300* 1000);//300ms延时
+     pca9685_servo_set_angle(port_rb_a, home_rb_b+ 5);
+   usleep(300* 1000);//300ms延时
+  }
+}
+
+// 扭身子
+void twist(){
+   pca9685_servo_set_angle(port_rf_a, home_rf_b);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b);
+  pca9685_servo_set_angle(port_lb_a, home_lf_b);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b);
+  
+  for(int right=90;right<170;right++){
+  pca9685_servo_set_angle(port_rf_b, right);
+  pca9685_servo_set_angle(port_lf_b, right);
+  pca9685_servo_set_angle(port_lb_b, right-90);
+  pca9685_servo_set_angle(port_rb_b, right-90);
+    usleep(10* 1000);//100ms延时
+  }
+
+   for(int right=170;right>90;right--){
+  pca9685_servo_set_angle(port_rf_b, right);
+  pca9685_servo_set_angle(port_lf_b, right);
+  pca9685_servo_set_angle(port_lb_b, right-90);
+  pca9685_servo_set_angle(port_rb_b, right-90);
+     usleep(10* 1000);//100ms延时
+  }
+
+}
+
+// 退后
+void backward(unsigned int step){
+  while (step-- > 0){
+  pca9685_servo_set_angle(port_rf_a, home_rf_b+30);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b+30);
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_b, home_rf_a);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a);
+  pca9685_servo_set_angle(port_lb_b, home_lf_a-30);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a+30);
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_a, home_rf_b);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b);
+  usleep(100* 1000);//100ms延时
+  
+  pca9685_servo_set_angle(port_lb_a, home_lf_b-30);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b-30);
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_b, home_rf_a+30);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a-30);
+  pca9685_servo_set_angle(port_lb_b, home_lf_a);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a);
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_lb_a, home_lf_b);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b);
+  usleep(100* 1000);//100ms延时
+  }
+}
+
+// 右移
+void rightturn(unsigned int step){
+  while (step-- > 0){
+  pca9685_servo_set_angle(port_lb_a, home_lf_b-30);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b-30);
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_b, home_rf_a+30);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a-30);
+   pca9685_servo_set_angle(port_lb_b, home_lf_a-30);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a+30);
+   usleep(100* 1000);//100ms延时
+   pca9685_servo_set_angle(port_lb_a, home_lf_b);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b);
+   usleep(100* 1000);//100ms延时
+   pca9685_servo_set_angle(port_rf_a, home_rf_b+30);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b+30); 
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_b, home_rf_a);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a);
+  pca9685_servo_set_angle(port_lb_b, home_lf_a);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a);
+ usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_a, home_rf_b);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b);
+  usleep(100* 1000);//100ms延时
+  }
+}
+
+// 左移
+void leftturn(unsigned int step){
+  while (step-- > 0){
+  pca9685_servo_set_angle(port_rf_a, home_rf_b+30);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b+30);
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_b, home_rf_a+30);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a-30);
+  pca9685_servo_set_angle(port_lb_b, home_lf_a-30);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a+30);
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_a, home_rf_b);
+  pca9685_servo_set_angle(port_lf_a, home_lb_b);
+  usleep(100* 1000);//100ms延时
+  
+  pca9685_servo_set_angle(port_lb_a, home_lf_b-30);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b-30);
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_rf_b, home_rf_a);
+  pca9685_servo_set_angle(port_rb_b, home_rb_a);
+  pca9685_servo_set_angle(port_lb_b, home_lf_a);
+  pca9685_servo_set_angle(port_lf_b, home_lb_a);
+  usleep(100* 1000);//100ms延时
+  pca9685_servo_set_angle(port_lb_a, home_lf_b);
+  pca9685_servo_set_angle(port_rb_a, home_rb_b);
+  usleep(100* 1000);//100ms延时
+  }
 }
 
 void dog_execAction(dog_action_t *action) {
@@ -162,60 +466,76 @@ void dog_execJson(char *buf, int len) {
 
     int type = cJSON_GetObjectItem(recv_json, "type")->valueint;
     if (type == 1) {
-        dog_install();
+        stand1();
     } else if (type == 2) {
-        int index = cJSON_GetObjectItem(recv_json, "index")->valueint;
+        // int index = cJSON_GetObjectItem(recv_json, "index")->valueint;
 
-        cJSON *data_json;
-        data_json = cJSON_GetObjectItem(recv_json, "data");
-        int alpha = cJSON_GetArrayItem(data_json, 0)->valueint;
-        int beta = cJSON_GetArrayItem(data_json, 1)->valueint;
+        // cJSON *data_json;
+        // data_json = cJSON_GetObjectItem(recv_json, "data");
+        // int alpha = cJSON_GetArrayItem(data_json, 0)->valueint;
+        // int beta = cJSON_GetArrayItem(data_json, 1)->valueint;
 
-        if (index == 0) {
-            dog_setLeftFrontAngle(alpha, beta);
-        } else if (index == 1) {
-            dog_setLeftBackAngle(alpha, beta);
-        } else if (index == 2) {
-            dog_setRightFrontAngle(alpha, beta);
-        } else if (index == 3) {
-            dog_setRightBackAngle(alpha, beta);
-        }
+        // if (index == 0) {
+        //     dog_setLeftFrontAngle(alpha, beta);
+        // } else if (index == 1) {
+        //     dog_setLeftBackAngle(alpha, beta);
+        // } else if (index == 2) {
+        //     dog_setRightFrontAngle(alpha, beta);
+        // } else if (index == 3) {
+        //     dog_setRightBackAngle(alpha, beta);
+        // }
     } else if (type == 3) {
-        int execute_count = 1;
-        if (cJSON_HasObjectItem(recv_json, "count")) {
-            execute_count = cJSON_GetObjectItem(recv_json, "count")->valueint;
+        // int execute_count = 1;
+        // if (cJSON_HasObjectItem(recv_json, "count")) {
+        //     execute_count = cJSON_GetObjectItem(recv_json, "count")->valueint;
+        // }
+
+        // dog_action_t *action = malloc(sizeof(dog_action_t));
+        // action->exec_count = execute_count;
+
+        // // 发送多条
+        // cJSON *list_json;
+        // list_json = cJSON_GetObjectItem(recv_json, "list");
+        // int count = cJSON_GetArraySize(list_json);
+
+        // action->len = count;
+        // action->cmds = malloc(sizeof(dog_cmd_t) * count);
+
+        // for (int i = 0; i < count; i++) {
+        //     cJSON *item_json;
+        //     item_json = cJSON_GetArrayItem(list_json, i);
+
+        //     dog_cmd_t cmd;
+        //     cmd.angle[0] = cJSON_GetArrayItem(item_json, 0)->valueint;
+        //     cmd.angle[1] = cJSON_GetArrayItem(item_json, 1)->valueint;
+        //     cmd.angle[2] = cJSON_GetArrayItem(item_json, 2)->valueint;
+        //     cmd.angle[3] = cJSON_GetArrayItem(item_json, 3)->valueint;
+        //     cmd.angle[4] = cJSON_GetArrayItem(item_json, 4)->valueint;
+        //     cmd.angle[5] = cJSON_GetArrayItem(item_json, 5)->valueint;
+        //     cmd.angle[6] = cJSON_GetArrayItem(item_json, 6)->valueint;
+        //     cmd.angle[7] = cJSON_GetArrayItem(item_json, 7)->valueint;
+        //     cmd.duration = cJSON_GetArrayItem(item_json, 8)->valueint;
+
+        //     action->cmds[i] = cmd;
+        // }
+        // dog_execAction(action);
+            twist();
+        usleep(1000* 1000);//一秒延时
+        sithome();
+        usleep(1000* 1000);//一秒延时
+
+        initial();
+        usleep(1000* 1000);//一秒延时
+
+        stand2();
+        usleep(1000* 1000);//一秒延时
+
+        stand3();
+        usleep(1000* 1000);//一秒延时
+
+        wink(10);
+        usleep(1000* 1000);//一秒延时
         }
-
-        dog_action_t *action = malloc(sizeof(dog_action_t));
-        action->exec_count = execute_count;
-
-        // 发送多条
-        cJSON *list_json;
-        list_json = cJSON_GetObjectItem(recv_json, "list");
-        int count = cJSON_GetArraySize(list_json);
-
-        action->len = count;
-        action->cmds = malloc(sizeof(dog_cmd_t) * count);
-
-        for (int i = 0; i < count; i++) {
-            cJSON *item_json;
-            item_json = cJSON_GetArrayItem(list_json, i);
-
-            dog_cmd_t cmd;
-            cmd.angle[0] = cJSON_GetArrayItem(item_json, 0)->valueint;
-            cmd.angle[1] = cJSON_GetArrayItem(item_json, 1)->valueint;
-            cmd.angle[2] = cJSON_GetArrayItem(item_json, 2)->valueint;
-            cmd.angle[3] = cJSON_GetArrayItem(item_json, 3)->valueint;
-            cmd.angle[4] = cJSON_GetArrayItem(item_json, 4)->valueint;
-            cmd.angle[5] = cJSON_GetArrayItem(item_json, 5)->valueint;
-            cmd.angle[6] = cJSON_GetArrayItem(item_json, 6)->valueint;
-            cmd.angle[7] = cJSON_GetArrayItem(item_json, 7)->valueint;
-            cmd.duration = cJSON_GetArrayItem(item_json, 8)->valueint;
-
-            action->cmds[i] = cmd;
-        }
-        dog_execAction(action);
-    }
     cJSON_Delete(recv_json);
 }
 

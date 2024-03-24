@@ -24,6 +24,7 @@ static void start(void) {
     IoTI2cInit(0, 400000);
 
     dog_init();
+
     genki_services_start();
     init_service();
 }

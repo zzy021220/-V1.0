@@ -39,38 +39,187 @@ static int doHtml(genki_web_request_t *request, genki_web_response_t *response) 
             response->write(response, buf, strlen(buf));
         }
     } else {
-       const char *html = "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"UTF-8\"><title>天使战队</title>\
-       <style> body {user-select: none;text-align: center;}  table {margin: 0 auto}  td div {width: 150px;height: 150px;border: 1px solid darkgrey;display: flex;align-items: center;justify-content: center;color: black;}  #s {background-color: red;color: white;}  td div:active {background: deepskyblue;color: white;}  button {margin: 0.5rem;width: 9rem;height: 3rem;font-size: 1.2rem;border-radius: 1rem;}  button:hover {border-radius: 1rem;background-color: deepskyblue;color: aliceblue;}\
-       </style></head><body><h1>鸿蒙狗控制</h1>\
-       <button id=\"h\">初始化</button>\
-       <br><br>\
-       <button id=\"b\">原地踏步</button>\
-       <br><br>\
-       <button id=\"d\">前进</button>\
-       <br><br>\
-       <button id=\"e\">后退</button>\
-       <br><br>\
-       <button id=\"f\">左转</button>\
-       <br><br>\
-       <button id=\"g\">右转</button>\
-       <br><br>\
-       <script> function u(p) {return `${p}`;}\
-       function g(i) {return document.getElementById(i);}\
-       function fe(e, f) {e.addEventListener('click', function (e) {/* do something*/f();});}\
-       function fg(u, f) {let x = new XMLHttpRequest();x.onreadystatechange = function () {if (this.readyState == 4 && this.status == 200) {f(x);}};x.open(\"GET\", u, true);x.send();}\
-       function fp(u, d, f, p) {let x = new XMLHttpRequest();if (p) {x.upload.addEventListener('progress', function (e) {p(e);});}x.onreadystatechange = function () {if (this.readyState == 4 && this.status == 200) {f(x);}};x.open('POST', u, true);x.timeout = 45000;x.send(d);}\
-       fe(g('b'), () => {let data = {\"type\": 3, \"count\": 10, \"list\": [[45, 125, 75, 100, 75, 100, 45, 125, 100], [75, 100, 45, 110, 45, 110, 75, 100, 100]]};fp(u('/dog/cmds'), JSON.stringify(data), () => {});});\
-       fe(g('d'), () => {let data = {\"type\": 3, \"count\": 10, \"list\": [[32, 103, 58, 147, 67, 142, 21, 107, 80], [38, 117, 11, 139, 20, 140, 28, 120, 80], [64, 140, 7, 112, 18, 110, 55, 145, 80], [52, 147, 22, 109, 33, 105, 44, 150, 80], [2, 123, 42, 136, 52, 132, -8, 122, 80]]};fp(u('/dog/cmds'), JSON.stringify(data), () => {});});\
-       fe(g('e'), () => {let data = {\"type\": 3, \"count\": 5, \"list\":  [[87, 149, 31, 124, 41, 120, 77, 156, 80], [69, 143, 18, 139, 27, 139, 60, 148, 80], [42, 122, 67, 161, 74, 155, 32, 126, 80], [32, 126, 74, 155, 84, 148, 22, 128, 80], [47, 155, 42, 135, 51, 131, 40, 157, 80]]};fp(u('/dog/cmds'), JSON.stringify(data), () => {});});\
-       fe(g('f'), () => {let data = {\"type\": 3, \"count\": 10, \"list\": [[63, 139, 19, 100, 63, 139, 19, 100, 80], [48, 128, 16, 117, 39, 132, 25, 115, 80], [31, 98, 48, 144, 27, 100, 51, 142, 80], [57, 140, 20, 103, 31, 98, 48, 144, 80], [26, 115, 38, 132, 48, 128, 16, 117, 80]]};fp(u('/dog/cmds'), JSON.stringify(data), () => {});});\
-       fe(g('g'), () => {let data = {\"type\": 3, \"count\": 10, \"list\": [[31, 96, 54, 144, 31, 96, 54, 144, 80], [35, 112, 22, 136, 16, 117, 38, 132, 80], [60, 138, 13, 105, 54, 141, 20, 103, 80], [23, 102, 51, 142, 60, 138, 13, 105, 80], [31, 134, 25, 115, 35, 112, 22, 136, 80]]};fp(u('/dog/cmds'), JSON.stringify(data), () => {});});\
-       fe(g('h'), () => {let data = {\"type\": 3, \"count\": 1, \"list\":  [[45, 135, 45, 135, 45, 135, 45, 135, 300]]};fp(u('/dog/cmds'), JSON.stringify(data), () => {});});\
-       </script></body></html>";
-
+        const char *html = \
+        "<!DOCTYPE html>\
+        <html lang=\"en\">\
+            <head>\
+                <meta charset=\"UTF-8\">\
+                <title>元气派</title>\
+                <style>\
+                    body {user-select: none;text-align: center;}\
+                    table {margin: 0 auto}\
+                    td div {\
+                        width: 150px;\
+                        height: 150px;\
+                        border: 1px solid darkgrey;\
+                        display: flex;\
+                        align-items: center;\
+                        justify-content: center;\
+                        color: black;\
+                    }  \
+                    #s {\
+                        background-color: red;\
+                        color: white;\
+                    }  \
+                    td div:active {\
+                        background: deepskyblue;\
+                        color: white;\
+                    }  \
+                    button {\
+                        margin: 0.5rem;\
+                        width: 9rem;\
+                        height: 3rem;\
+                        font-size: 1.2rem;\
+                        border-radius: 1rem;\
+                    }  \
+                    button:hover {\
+                        border-radius: 1rem;\
+                        background-color: deepskyblue;\
+                        color: aliceblue;\
+                    }\
+                </style>\
+            </head>\
+            <body>\
+                <h1>鸿蒙狗控制</h1>\
+                <button id=\"a\">初始化动作</button>\
+                <br>\
+                <br>\
+                <button id=\"b\">前进</button>\
+                <br>\
+                <br>\
+                <button id=\"d\">左转</button>\
+                <button id=\"e\">右转</button>\
+                <br>\
+                <br>\
+                <button id=\"c\">后退</button>\
+                <br>\
+                <br>\
+                <button id=\"f\">握手</button>\
+                <br>\
+                <br>\
+                <button id=\"g\">扭身子</button>\
+                <br>\
+                <br>\
+                <button id=\"h\">伸懒腰</button>\
+                <br>\
+                <br>\
+                <button id=\"i\">站立</button>\
+                <button id=\"j\">趴下</button>\
+                <br>\
+                <br>\
+                <button id=\"k\">动作组合1</button>\
+                <br>\
+                <br>\
+                <button id=\"l\">动作组合2</button>\
+                <br>\
+                <br>\
+                <script> \
+                    function u(p) {\
+                        return `${p}`;\
+                    }\
+                    function g(i) {\
+                        return document.getElementById(i);\
+                    }\
+                    function fe(e, f) {\
+                        e.addEventListener('click', function (e) {\
+                            /* do something*/\
+                            f();\
+                        });\
+                    }\
+                    function fg(u, f) {\
+                        let x = new XMLHttpRequest();\
+                        x.onreadystatechange = function () {\
+                            if (this.readyState == 4 && this.status == 200) {\
+                                f(x);\
+                            }\
+                        }\
+                        ;\
+                        x.open(\"GET\", u, true);\
+                        x.send();\
+                    }\
+                    function fp(u, d, f, p) {\
+                        let x = new XMLHttpRequest();\
+                        if (p) {\
+                            x.upload.addEventListener('progress', function (e) {\
+                                p(e);\
+                            });\
+                        }\
+                        x.onreadystatechange = function () {\
+                            if (this.readyState == 4 && this.status == 200) {\
+                                f(x);\
+                            }\
+                        }\
+                        ;\
+                        x.open('POST', u, true);\
+                        x.timeout = 45000;\
+                        x.send(d);\
+                    }\
+                    fe(g('a'), () => {\
+                        fg(u('/dog/init'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('b'), () => {\
+                        fg(u('/dog/forward'), () => {}\
+                        );\
+                    }\
+                    );\
+                   fe(g('c'), () => {\
+                        fg(u('/dog/backward'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('d'), () => {\
+                        fg(u('/dog/leftturn'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('e'), () => {\
+                        fg(u('/dog/rightturn'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('f'), () => {\
+                        fg(u('/dog/wink'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('g'), () => {\
+                        fg(u('/dog/twist'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('h'), () => {\
+                        fg(u('/dog/shof'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('i'), () => {\
+                        fg(u('/dog/standhome'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('j'), () => {\
+                        fg(u('/dog/sithome'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('k'), () => {\
+                        fg(u('/dog/dostan1'), () => {}\
+                        );\
+                    }\
+                    );\
+                    fe(g('l'), () => {\
+                        fg(u('/dog/dostan2'), () => {}\
+                        );\
+                    }\
+                    );\
+                </script>\
+            </body>\
+        </html>";
         size_t len = strlen(html);
 
-        //char buf[128];
-        char buf[1024];
+        char buf[128];
         sprintf(buf, "%d", len);
         response->setHeader(response, "Content-Type", "text/html; charset=UTF-8");
         response->setHeader(response, "Content-Length", buf);
@@ -81,8 +230,86 @@ static int doHtml(genki_web_request_t *request, genki_web_response_t *response) 
     return 1;
 }
 
+// static int dotest(genki_web_request_t *request, genki_web_response_t *response) {
+//     test();       //测试
+
+//     return 1;
+// }
+
 static int doInit(genki_web_request_t *request, genki_web_response_t *response) {
-    dog_install();
+    initial();       //初始化动作
+
+    return 1;
+}
+
+static int dostan1(genki_web_request_t *request, genki_web_response_t *response) {
+     stand1();      //动作组合1
+
+    return 1;
+}
+
+static int dostan2(genki_web_request_t *request, genki_web_response_t *response) {
+    stand2();       //動作2
+
+    return 1;
+}
+
+static int doshof(genki_web_request_t *request, genki_web_response_t *response) {
+    stand3();       //  伸懒腰
+
+    return 1;
+}
+
+static int dodownaction(genki_web_request_t *request, genki_web_response_t *response) {
+    downaction();
+
+    return 1;
+}
+
+static int dowink(genki_web_request_t *request, genki_web_response_t *response) {
+    wink(5);        //握手
+
+    return 1;
+}
+
+static int dotwist(genki_web_request_t *request, genki_web_response_t *response) {
+    twist(5);       //扭腰
+
+    return 1;
+}
+
+static int doforward(genki_web_request_t *request, genki_web_response_t *response) {
+    forward(5);     //前进
+
+    return 1;
+}
+
+static int dobackward(genki_web_request_t *request, genki_web_response_t *response) {
+    backward(5);        //后退
+
+    return 1;
+}
+
+static int dorightturn(genki_web_request_t *request, genki_web_response_t *response) {
+    rightturn(5);       //右转
+
+    return 1;
+}
+
+static int doleftturn(genki_web_request_t *request, genki_web_response_t *response) {
+    leftturn(5);        //左转
+
+    return 1;
+}
+
+static int dostandhome(genki_web_request_t *request, genki_web_response_t *response) {
+    standhome();        //站立
+
+    return 1;
+}
+
+static int dosithome(genki_web_request_t *request, genki_web_response_t *response) {
+    sithome();      //趴下
 
     return 1;
 }
@@ -110,7 +337,17 @@ genki_web_service_t *newDogService(void) {
     genki_web_service_t *service = genki_web_newService("DOG");
     service->addFilter(service, "/dog", doHtml);
     service->addFilter(service, "/dog/init", doInit);
-    service->addFilter(service, "/dog/cmds", doCmds);
+    service->addFilter(service, "/dog/forward", doforward);
+    service->addFilter(service, "/dog/backward", dobackward);
+    service->addFilter(service, "/dog/leftturn", doleftturn);
+    service->addFilter(service, "/dog/rightturn", dorightturn);
+    service->addFilter(service, "/dog/wink", dowink);
+    service->addFilter(service, "/dog/twist", dotwist);
+    service->addFilter(service, "/dog/shof", doshof);
+    service->addFilter(service, "/dog/dostan1", dostan1);
+    service->addFilter(service, "/dog/dostan2", dostan2);
+    service->addFilter(service, "/dog/standhome", dostandhome);
+    service->addFilter(service, "/dog/sithome", dosithome);
 
     service->link_name = "Dog控制";
     service->link_url = "/dog";
